@@ -1,15 +1,19 @@
 # Real-time cryptocurrency ETL workflow
-This is a real-time cloud ETL project for cryptocurrency data using CoinPapirka API.
--What are the newest cryptocurrencies released? 
--Which crytocurrencies seem to be bullish in the recent minutes or hours?
--Which of them are facing so called close-calls with ATHs(All Time High values) and which of them have justt hit a new one recently?
-*These and many more questions could have been answered using this automated real-time ETL pipeline.
+This is a real-time cloud ETL project for cryptocurrency data using CoinPaprika API.
+- What are the newest cryptocurrencies released? 
+- Which crytocurrencies seem to be bullish in the recent minutes or hours?
+- Which of them are facing so called close-calls with ATHs(All Time High values) and which of them have justt hit a new one recently?
 
-The API is free to use with no key needed - limited for 2000 rows per query, though. 
+These and many more questions could have been answered using this automated real-time ETL pipeline.
+
+The API is free to use with no key needed - limited for 2000 rows per query and 25,000 per day, though. 
 Obtaining the data is automated with **Airflow**, the DAG runs evey 5 minutes for the fresh data.
+
 This project incorporates **Azure Blob Storage** as a direct ingestion place for response from API and Snowflake SnowPipe for ingestion into **Snowflake** cloud and further manipulations. 
 **Azure Storage Queue & Event hubs** were used to set up the **SnowPipe**. 
+
 Additionally, **Azure Event Grid Viewer** is set for obtaining notifications regarding any warnings or errors during snowflake tasks processing.
+
 Finally, a basic data visualization dashboard is created in Snowflake, showing most important data by hand.
 
 **As it seems logical not everybody would like to spend time setting this project up on their computer to see the workflow, i have prepared an easy to follow visual-documentation 
