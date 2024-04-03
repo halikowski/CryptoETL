@@ -5,6 +5,14 @@ from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 import logging
 from datetime import datetime, timedelta
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# Azure storage access keys
+storage_conn_string = os.environ.get('CONN_STRING')
+container_name = os.environ.get('CONTAINER_NAME')
 
 # Logging setup
 logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.WARNING)
@@ -17,10 +25,8 @@ def get_tickers():
     now = datetime.now()
 
     # Azure connection setup
-    blob_service_client = BlobServiceClient.from_connection_string(
-        'DefaultEndpointsProtocol=https;AccountName=halikowski720;AccountKey=QBef/IUst5JIG+xGXyDo/Y55Ahoxj2HS5nVUV+'
-        'fTpd48kifvwp8DI1mD06eFixvSK1rJIocjJ8KF+AStS2yxSw==;EndpointSuffix=core.windows.net')
-    container_client = blob_service_client.get_container_client('coin-paprika-files')
+    blob_service_client = BlobServiceClient.from_connection_string(storage_conn_string)
+    container_client = blob_service_client.get_container_client(container_name)
 
     # List all blobs in the container
     blob_list = container_client.list_blobs()
